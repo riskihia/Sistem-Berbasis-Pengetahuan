@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get("/periksa", [CfController::class, "hitung"]);
+
+Route::get('/', [CfController::class, "index"]);
+
 
 Route::get('/login', function(){
     return view('auth.login');
