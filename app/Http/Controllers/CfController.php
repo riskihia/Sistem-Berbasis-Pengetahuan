@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class CfController extends Controller
 {
-    public function index()
+    public function question()
     {
         $penyakit = [
             "1" => [
@@ -100,11 +100,114 @@ class CfController extends Controller
                 "bobot" => 0.4
             ],
         ];
-        
-        
-        return response()->view("welcome", [
-            "penyakit"=>$penyakit
+        return response()->view("questionpage",[
+            "penyakit" => $penyakit
         ]);
+    }
+    public function member()
+    {
+        return response()->view("memberpage");
+    }
+    public function index()
+    {
+        // $penyakit = [
+        //     "1" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Keluarga kandung ada yang mempunyai riwayat katarak",
+        //         "bobot" => 0.4
+        //     ],
+        //     "2" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Ibu pasien mengalami infeksi selama kehamilan",
+        //         "bobot" => 0.4
+        //     ],
+        //     "3" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Pernah mengalami reaksi obat",
+        //         "bobot" => 0.4
+        //     ],
+        //     "4" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Pernah mengalami trauma mata",
+        //         "bobot" => 0.8
+        //     ],
+        //     "5" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Ada riwayat diabetes",
+        //         "bobot" => 0.4
+        //     ],
+        //     "6" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Berawan dilensa",
+        //         "bobot" => 0.4
+        //     ],
+        //     "7" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Gerakan mata yang tidak biasa (Nytagmus)",
+        //         "bobot" => 0.4
+        //     ],
+        //     "8" => [
+        //         "nama" => "Katarak Kongenital",
+        //         "gejala" => "Bola mata bergoyang-goyang atau juling jika dibuka",
+        //         "bobot" => 0.4
+        //     ],
+        //     "9" => [
+        //         "nama" => "Katarak Juvenil",
+        //         "gejala" => "Pandangan Kabur",
+        //         "bobot" => 0.8
+        //     ],
+        //     "10" => [
+        //         "nama" => "Katarak Juvenil",
+        //         "gejala" => "Silau",
+        //         "bobot" => 0.8
+        //     ],
+        //     "11" => [
+        //         "nama" => "Katarak Juvenil",
+        //         "gejala" => "Perubahan daya lihat warna",
+        //         "bobot" => 0.6
+        //     ],
+        //     "12" => [
+        //         "nama" => "Katarak Juvenil",
+        //         "gejala" => "Penurunan ketajaman penglihatan",
+        //         "bobot" => 0.4
+        //     ],
+        //     "13" => [
+        //         "nama" => "Katarak Juvenil",
+        //         "gejala" => "Diplopia monocular (penglihatan ganda pada satu mata)",
+        //         "bobot" => 0.6
+        //     ],
+        //     "14" => [
+        //         "nama" => "Katarak Traumatik",
+        //         "gejala" => "Luka memar pada area mata karena benda tumpul",
+        //         "bobot" => 0.8
+        //     ],
+        //     "15" => [
+        //         "nama" => "Katarak Traumatik",
+        //         "gejala" => "Luka memar pada area mata karena benda tajam",
+        //         "bobot" => 0.6
+        //     ],
+        //     "16" => [
+        //         "nama" => "Katarak Traumatik",
+        //         "gejala" => "Pernah terkena radiasi sinar",
+        //         "bobot" => 0.4
+        //     ],
+        //     "17" => [
+        //         "nama" => "Katarak Traumatik",
+        //         "gejala" => "Pernah terkena zat kimia pada area mata",
+        //         "bobot" => 0.4
+        //     ],
+        //     "18" => [
+        //         "nama" => "Katarak Traumatik",
+        //         "gejala" => "Pernah mengalami sensitivitas kontras saat menonton televisi atau laptop",
+        //         "bobot" => 0.4
+        //     ],
+        // ];
+        
+        
+        return response()->view("homepage");
+        // return response()->view("welcome", [
+        //     "penyakit"=>$penyakit
+        // ]);
     }
     public function hitung(Request $request)
     {
@@ -132,7 +235,8 @@ class CfController extends Controller
         ]);
         
         // return $this->combineKongentinal($rule1, $rule2, $rule3);
-        return $this->combineJuvenil($rule4, $rule5);
+        // return $this->combineJuvenil($rule4, $rule5);
+        return $this->combineTraumatik($rule6, $rule7, $rule8);
     }
 
 
@@ -153,6 +257,20 @@ class CfController extends Controller
     private function combineJuvenil($rule4, $rule5)
     {
         $arr_rule = [$rule4, $rule5];
+        $cf1 = $arr_rule[0];
+        $hasil = 0;
+
+        for($x=1; $x < count($arr_rule); $x++){
+            $cf2 = $arr_rule[$x];
+            $hasil = $cf1 + $cf2 *  (1 - $cf1);
+            $cf1 = $hasil;
+        }
+
+        return $hasil;
+    }
+    private function combineTraumatik($rule6, $rule7, $rule8)
+    {
+        $arr_rule = [$rule6, $rule7, $rule8];
         $cf1 = $arr_rule[0];
         $hasil = 0;
 

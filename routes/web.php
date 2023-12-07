@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/periksa", [CfController::class, "hitung"]);
+Route::get("/periksa-proses", [CfController::class, "hitung"]);
 
 Route::get('/', [CfController::class, "index"]);
+Route::get('/member', [CfController::class, "member"]);
+Route::get("/periksa", [CfController::class, "question"]);
 
 
 Route::get('/login', function(){
