@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\CfController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\GuestMiddleware;
+use App\Http\Middleware\MemberMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +17,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/periksa-proses", [CfController::class, "hitung"]);
-
-Route::get('/', [CfController::class, "index"]);
-Route::get('/member', [CfController::class, "member"]);
-Route::get("/periksa", [CfController::class, "question"]);
 
 
-Route::get('/login', function(){
-    return view('auth.login');
+Route::group(['middleware' => ['web', MemberMiddleware::class]], function () {
+    Route::get('/member', [CfController::class, "member"])->name("halamanMember");
+    Route::get('/periksa', [CfController::class, 'question']);
+    Route::get("/periksa-proses", [CfController::class, "hitung"]);
+    Route::post('/logout', [UserController::class, "logout"]);
 });
 
-Route::get('/register', function(){
-    return view('auth.register');
+
+Route::group(['middleware' => ['web', GuestMiddleware::class]], function () {
+    Route::get('/', [CfController::class, "index"]);
+    Route::get('/login', [UserController::class, "loginPage"]);
+    Route::post('/login', [UserController::class, "doLogin"]);
+    Route::get('/register', [UserController::class, "registerPage"]);
+    Route::post('/register', [UserController::class, "doRegister"]);
 });
+

@@ -2,212 +2,32 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diagnosa;
+use App\Models\Penyakit;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CfController extends Controller
 {
     public function question()
     {
-        $penyakit = [
-            "1" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Keluarga kandung ada yang mempunyai riwayat katarak",
-                "bobot" => 0.4
-            ],
-            "2" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Ibu pasien mengalami infeksi selama kehamilan",
-                "bobot" => 0.4
-            ],
-            "3" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Pernah mengalami reaksi obat",
-                "bobot" => 0.4
-            ],
-            "4" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Pernah mengalami trauma mata",
-                "bobot" => 0.8
-            ],
-            "5" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Ada riwayat diabetes",
-                "bobot" => 0.4
-            ],
-            "6" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Berawan dilensa",
-                "bobot" => 0.4
-            ],
-            "7" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Gerakan mata yang tidak biasa (Nytagmus)",
-                "bobot" => 0.4
-            ],
-            "8" => [
-                "nama" => "Katarak Kongenital",
-                "gejala" => "Bola mata bergoyang-goyang atau juling jika dibuka",
-                "bobot" => 0.4
-            ],
-            "9" => [
-                "nama" => "Katarak Juvenil",
-                "gejala" => "Pandangan Kabur",
-                "bobot" => 0.8
-            ],
-            "10" => [
-                "nama" => "Katarak Juvenil",
-                "gejala" => "Silau",
-                "bobot" => 0.8
-            ],
-            "11" => [
-                "nama" => "Katarak Juvenil",
-                "gejala" => "Perubahan daya lihat warna",
-                "bobot" => 0.6
-            ],
-            "12" => [
-                "nama" => "Katarak Juvenil",
-                "gejala" => "Penurunan ketajaman penglihatan",
-                "bobot" => 0.4
-            ],
-            "13" => [
-                "nama" => "Katarak Juvenil",
-                "gejala" => "Diplopia monocular (penglihatan ganda pada satu mata)",
-                "bobot" => 0.6
-            ],
-            "14" => [
-                "nama" => "Katarak Traumatik",
-                "gejala" => "Luka memar pada area mata karena benda tumpul",
-                "bobot" => 0.8
-            ],
-            "15" => [
-                "nama" => "Katarak Traumatik",
-                "gejala" => "Luka memar pada area mata karena benda tajam",
-                "bobot" => 0.6
-            ],
-            "16" => [
-                "nama" => "Katarak Traumatik",
-                "gejala" => "Pernah terkena radiasi sinar",
-                "bobot" => 0.4
-            ],
-            "17" => [
-                "nama" => "Katarak Traumatik",
-                "gejala" => "Pernah terkena zat kimia pada area mata",
-                "bobot" => 0.4
-            ],
-            "18" => [
-                "nama" => "Katarak Traumatik",
-                "gejala" => "Pernah mengalami sensitivitas kontras saat menonton televisi atau laptop",
-                "bobot" => 0.4
-            ],
-        ];
+        $penyakit = Penyakit::all();
         return response()->view("questionpage",[
             "penyakit" => $penyakit
         ]);
     }
     public function member()
     {
-        return response()->view("memberpage");
+        $diagnosa = Diagnosa::all();
+
+        return response()->view("memberpage",[
+            "diagnosa" => $diagnosa
+        ]);
     }
     public function index()
     {
-        // $penyakit = [
-        //     "1" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Keluarga kandung ada yang mempunyai riwayat katarak",
-        //         "bobot" => 0.4
-        //     ],
-        //     "2" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Ibu pasien mengalami infeksi selama kehamilan",
-        //         "bobot" => 0.4
-        //     ],
-        //     "3" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Pernah mengalami reaksi obat",
-        //         "bobot" => 0.4
-        //     ],
-        //     "4" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Pernah mengalami trauma mata",
-        //         "bobot" => 0.8
-        //     ],
-        //     "5" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Ada riwayat diabetes",
-        //         "bobot" => 0.4
-        //     ],
-        //     "6" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Berawan dilensa",
-        //         "bobot" => 0.4
-        //     ],
-        //     "7" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Gerakan mata yang tidak biasa (Nytagmus)",
-        //         "bobot" => 0.4
-        //     ],
-        //     "8" => [
-        //         "nama" => "Katarak Kongenital",
-        //         "gejala" => "Bola mata bergoyang-goyang atau juling jika dibuka",
-        //         "bobot" => 0.4
-        //     ],
-        //     "9" => [
-        //         "nama" => "Katarak Juvenil",
-        //         "gejala" => "Pandangan Kabur",
-        //         "bobot" => 0.8
-        //     ],
-        //     "10" => [
-        //         "nama" => "Katarak Juvenil",
-        //         "gejala" => "Silau",
-        //         "bobot" => 0.8
-        //     ],
-        //     "11" => [
-        //         "nama" => "Katarak Juvenil",
-        //         "gejala" => "Perubahan daya lihat warna",
-        //         "bobot" => 0.6
-        //     ],
-        //     "12" => [
-        //         "nama" => "Katarak Juvenil",
-        //         "gejala" => "Penurunan ketajaman penglihatan",
-        //         "bobot" => 0.4
-        //     ],
-        //     "13" => [
-        //         "nama" => "Katarak Juvenil",
-        //         "gejala" => "Diplopia monocular (penglihatan ganda pada satu mata)",
-        //         "bobot" => 0.6
-        //     ],
-        //     "14" => [
-        //         "nama" => "Katarak Traumatik",
-        //         "gejala" => "Luka memar pada area mata karena benda tumpul",
-        //         "bobot" => 0.8
-        //     ],
-        //     "15" => [
-        //         "nama" => "Katarak Traumatik",
-        //         "gejala" => "Luka memar pada area mata karena benda tajam",
-        //         "bobot" => 0.6
-        //     ],
-        //     "16" => [
-        //         "nama" => "Katarak Traumatik",
-        //         "gejala" => "Pernah terkena radiasi sinar",
-        //         "bobot" => 0.4
-        //     ],
-        //     "17" => [
-        //         "nama" => "Katarak Traumatik",
-        //         "gejala" => "Pernah terkena zat kimia pada area mata",
-        //         "bobot" => 0.4
-        //     ],
-        //     "18" => [
-        //         "nama" => "Katarak Traumatik",
-        //         "gejala" => "Pernah mengalami sensitivitas kontras saat menonton televisi atau laptop",
-        //         "bobot" => 0.4
-        //     ],
-        // ];
-        
-        
         return response()->view("homepage");
-        // return response()->view("welcome", [
-        //     "penyakit"=>$penyakit
-        // ]);
     }
     public function hitung(Request $request)
     {
@@ -222,242 +42,100 @@ class CfController extends Controller
         $rule6 = round($this->rule6($request), 2);
         $rule7 = round($this->rule7($request), 2);
         $rule8 = round($this->rule8($request), 2);
-
-        dump([
-            "rule 1" => $rule1, 
-            "rule 2" => $rule2, 
-            "rule 3" => $rule3,
-            "rule 4" => $rule4,
-            "rule 5" => $rule5,
-            "rule 6" => $rule6,
-            "rule 7" => $rule7,
-            "rule 8" => $rule8
-        ]);
         
-        $responseData = [
-            "Kongentinal" => $this->combineKongentinal($rule1, $rule2, $rule3),
-            "Juvenil" => $this->combineJuvenil($rule4, $rule5),
-            "Traumatik" => $this->combineTraumatik($rule6, $rule7, $rule8),
-        ];
 
-        dd($responseData);
-        return response()->json($responseData);
-        // return $this->combineKongentinal($rule1, $rule2, $rule3);
-        // return $this->combineJuvenil($rule4, $rule5);
-        // return $this->combineTraumatik($rule6, $rule7, $rule8);
-    }
+        $Kongentinal = intval(round($this->combine([$rule1, $rule2, $rule3]),3) * 100);
+        $Juvenil = intval(round($this->combine([$rule4, $rule5]),3) * 100);
+        $Traumatik = intval(round($this->combine([$rule6, $rule7, $rule8]),3) * 100);
 
+        if($Kongentinal != 0 || $Juvenil != 0 || $Traumatik != 0){
+            $user = User::where("id", Auth::user()->id)->first();
+            $diagnosa = $user->diagnosas()->create([
+                "kongentinal" => $Kongentinal,
+                "juvenil" => $Juvenil,
+                "traumatik" => $Traumatik,
+            ]);
 
-    private function combineKongentinal($rule1, $rule2, $rule3)
-    {
-        $arr_rule = [$rule1, $rule2, $rule3];
-        $cf1 = $arr_rule[0];
-        $hasil = 0;
-
-        for($x=1; $x < count($arr_rule); $x++){
-            $cf2 = $arr_rule[$x];
-            $hasil = $cf1 + $cf2 *  (1 - $cf1);
-            $cf1 = $hasil;
+            $responseData = [
+                "Kongentinal" => $Kongentinal . " %",
+                "Juvenil" => $Juvenil . " %",
+                "Traumatik" => $Traumatik . " %",
+            ];
+            session()->flash('message', 'Penyakit berhasil di periksa');
+            session()->flash('data', $responseData);
+        }else {
+            // Flash an error message
+            session()->flash('error', 'Penyakit tidak dapat di periksa');
         }
 
-        return $hasil;
+        return redirect()->route('halamanMember');
     }
-    private function combineJuvenil($rule4, $rule5)
+
+
+
+    private function combine(array $rules)
     {
-        $arr_rule = [$rule4, $rule5];
-        $cf1 = $arr_rule[0];
-        $hasil = 0;
+        $hasil = $rules[0];
 
-        for($x=1; $x < count($arr_rule); $x++){
-            $cf2 = $arr_rule[$x];
-            $hasil = $cf1 + $cf2 *  (1 - $cf1);
-            $cf1 = $hasil;
-        }
-
-        return $hasil;
-    }
-    private function combineTraumatik($rule6, $rule7, $rule8)
-    {
-        $arr_rule = [$rule6, $rule7, $rule8];
-        $cf1 = $arr_rule[0];
-        $hasil = 0;
-
-        for($x=1; $x < count($arr_rule); $x++){
-            $cf2 = $arr_rule[$x];
-            $hasil = $cf1 + $cf2 *  (1 - $cf1);
-            $cf1 = $hasil;
+        for ($i = 1; $i < count($rules); $i++) {
+            $hasil = $hasil + $rules[$i] * (1 - $hasil);
         }
 
         return $hasil;
     }
 
-    private function rule8($request)
+
+    private function applyRule(array $gejalaIndexes, array $request, $weight = 0.8)
     {
-        // Memeriksa keberadaan gejala_16, gejala_14, gejala_17, dan gejala_10 dalam $request
-        if (
-            isset($request['gejala_16']) &&
-            isset($request['gejala_14']) &&
-            isset($request['gejala_17']) &&
-            isset($request['gejala_10'])
-        ) {
-            // Mendapatkan nilai gejala_16, gejala_14, gejala_17, dan gejala_10 dari $request
-            $nilai_gejala_16 = floatval($request['gejala_16']);
-            $nilai_gejala_14 = floatval($request['gejala_14']);
-            $nilai_gejala_17 = floatval($request['gejala_17']);
-            $nilai_gejala_10 = floatval($request['gejala_10']);
+        $gejalaValues = array_map(function ($index) use ($request) {
+            return isset($request[$index]) ? floatval($request[$index]) : null;
+        }, $gejalaIndexes);
 
-            // Menghitung nilai minimum dari gejala_16, gejala_14, gejala_17, dan gejala_10, kemudian mengalikan dengan 0.65
-            $result = min([$nilai_gejala_16, $nilai_gejala_14, $nilai_gejala_17, $nilai_gejala_10]) * 0.7;
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
+        if (!in_array(null, $gejalaValues, true)) {
+            return min($gejalaValues) * $weight;
         }
-    }
 
-
-    private function rule7($request)
-    {
-        // Memeriksa keberadaan gejala_15, gejala_18, gejala_12, dan gejala_10 dalam $request
-        if (
-            isset($request['gejala_15']) &&
-            isset($request['gejala_18']) &&
-            isset($request['gejala_12']) &&
-            isset($request['gejala_10'])
-        ) {
-            // Mendapatkan nilai gejala_15, gejala_18, gejala_12, dan gejala_10 dari $request
-            $nilai_gejala_15 = floatval($request['gejala_15']);
-            $nilai_gejala_18 = floatval($request['gejala_18']);
-            $nilai_gejala_12 = floatval($request['gejala_12']);
-            $nilai_gejala_10 = floatval($request['gejala_10']);
-
-            // Menghitung nilai maksimum dari gejala_15, gejala_18, gejala_12, dan gejala_10
-            $result = min([$nilai_gejala_15, $nilai_gejala_18, $nilai_gejala_12, $nilai_gejala_10]) * 0.65;
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
-        }
-    }
-
-
-    private function rule2($request)
-    {
-        if (isset($request['gejala_7']) && isset($request['gejala_8'])) {
-
-            $nilai_gejala_7 = floatval($request['gejala_7']);
-            $nilai_gejala_8 = floatval($request['gejala_8']);
-
-            $result = min([$nilai_gejala_7, $nilai_gejala_8]) * 0.8;
-
-            return $result;
-        } else {
-            return null;
-        }
-    }
-
-    private function rule4($request)
-    {
-        // Memeriksa keberadaan gejala_9, gejala_10, dan gejala_11 dalam $request
-        if (isset($request['gejala_9']) && isset($request['gejala_10']) && isset($request['gejala_11'])) {
-            // Mendapatkan nilai gejala_9, gejala_10, dan gejala_11 dari $request
-            $nilai_gejala_9 = floatval($request['gejala_9']);
-            $nilai_gejala_10 = floatval($request['gejala_10']);
-            $nilai_gejala_11 = floatval($request['gejala_11']);
-
-            // Menghitung nilai maksimum dari gejala_9, gejala_10, dan gejala_11
-            $result = min([$nilai_gejala_9, $nilai_gejala_10, $nilai_gejala_11]) * 0.8;
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
-        }
-    }
-
-    private function rule5($request)
-    {
-        // Memeriksa keberadaan gejala_12, gejala_13, dan gejala_10 dalam $request
-        if (isset($request['gejala_12']) && isset($request['gejala_13']) && isset($request['gejala_10'])) {
-            // Mendapatkan nilai gejala_12, gejala_13, dan gejala_10 dari $request
-            $nilai_gejala_12 = floatval($request['gejala_12']);
-            $nilai_gejala_13 = floatval($request['gejala_13']);
-            $nilai_gejala_10 = floatval($request['gejala_10']);
-
-            // Menghitung nilai rata-rata dari gejala_12, gejala_13, dan gejala_10
-            $result = min([$nilai_gejala_12 , $nilai_gejala_13 , $nilai_gejala_10]) * 0.65;
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
-        }
+        return null;
     }
 
     private function rule1($request)
-    {    
-        if (isset($request['gejala_1']) && isset($request['gejala_2']) && isset($request['gejala_3']) && isset($request['gejala_4'])) {
-            
+    {
+        return $this->applyRule(['gejala_1', 'gejala_2', 'gejala_3', 'gejala_4'], $request);
+    }
 
-            $nilai_gejala_1 = floatval($request['gejala_1']);
-            $nilai_gejala_2 = floatval($request['gejala_2']);
-            $nilai_gejala_3 = floatval($request['gejala_3']);
-            $nilai_gejala_4 = floatval($request['gejala_4']);
-
-            $result = min([$nilai_gejala_1 , $nilai_gejala_2, $nilai_gejala_3, $nilai_gejala_4]) * 0.8;
-
-            return $result;
-        } else {
-            return null;
-        }
+    private function rule2($request)
+    {
+        return $this->applyRule(['gejala_7', 'gejala_8'], $request);
     }
 
     private function rule3($request)
     {
-        
-        if (isset($request['gejala_1']) && isset($request['gejala_3']) && isset($request['gejala_5']) && isset($request['gejala_6'])) {
-           
-            $nilai_gejala_1 = floatval($request['gejala_1']);
-            $nilai_gejala_3 = floatval($request['gejala_3']);
-            $nilai_gejala_5 = floatval($request['gejala_5']);
-            $nilai_gejala_6 = floatval($request['gejala_6']);
+        return $this->applyRule(['gejala_1', 'gejala_3', 'gejala_5', 'gejala_6'], $request);
+    }
 
-            $result = min([$nilai_gejala_1 , $nilai_gejala_3 , $nilai_gejala_5 , $nilai_gejala_6]) * 0.8;
+    private function rule4($request)
+    {
+        return $this->applyRule(['gejala_9', 'gejala_10', 'gejala_11'], $request);
+    }
 
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
-        }
+    private function rule5($request)
+    {
+        return $this->applyRule(['gejala_12', 'gejala_13', 'gejala_10'], $request, 0.65);
     }
 
     private function rule6($request)
     {
-        // Memeriksa keberadaan gejala_14, gejala_15, gejala_16, dan gejala_17 dalam $request
-        if (
-            isset($request['gejala_14']) &&
-            isset($request['gejala_15']) &&
-            isset($request['gejala_16']) &&
-            isset($request['gejala_17'])
-        ) {
-            // Mendapatkan nilai gejala_14, gejala_15, gejala_16, dan gejala_17 dari $request
-            $nilai_gejala_14 = floatval($request['gejala_14']);
-            $nilai_gejala_15 = floatval($request['gejala_15']);
-            $nilai_gejala_16 = floatval($request['gejala_16']);
-            $nilai_gejala_17 = floatval($request['gejala_17']);
-
-            // Menghitung nilai minimum dari gejala_14, gejala_15, gejala_16, dan gejala_17, kemudian mengalikan dengan 0.65
-            $result = min([$nilai_gejala_14, $nilai_gejala_15, $nilai_gejala_16, $nilai_gejala_17]) * 0.8;
-
-            return $result;
-        } else {
-            // Jika salah satu atau lebih tidak ada, kembalikan null
-            return null;
-        }
+        return $this->applyRule(['gejala_14', 'gejala_15', 'gejala_16', 'gejala_17'], $request);
     }
 
+    private function rule7($request)
+    {
+        return $this->applyRule(['gejala_15', 'gejala_18', 'gejala_12', 'gejala_10'], $request, 0.65);
+    }
+
+    private function rule8($request)
+    {
+        return $this->applyRule(['gejala_16', 'gejala_14', 'gejala_17', 'gejala_10'], $request, 0.7);
+    }
 
 }
