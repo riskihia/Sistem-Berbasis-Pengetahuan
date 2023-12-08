@@ -234,9 +234,17 @@ class CfController extends Controller
             "rule 8" => $rule8
         ]);
         
+        $responseData = [
+            "Kongentinal" => $this->combineKongentinal($rule1, $rule2, $rule3),
+            "Juvenil" => $this->combineJuvenil($rule4, $rule5),
+            "Traumatik" => $this->combineTraumatik($rule6, $rule7, $rule8),
+        ];
+
+        dd($responseData);
+        return response()->json($responseData);
         // return $this->combineKongentinal($rule1, $rule2, $rule3);
         // return $this->combineJuvenil($rule4, $rule5);
-        return $this->combineTraumatik($rule6, $rule7, $rule8);
+        // return $this->combineTraumatik($rule6, $rule7, $rule8);
     }
 
 

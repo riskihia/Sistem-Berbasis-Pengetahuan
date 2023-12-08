@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="no-scrollbar overflow-y-scroll max-h-screen">
-        <form action="{{URL('/periksa')}}" method="GET">
+        <form action="{{URL('/periksa-proses')}}" method="GET">
             @if ($penyakit)
                 @foreach ($penyakit as $key => $sakit)
                     <div class="shadow-lg md:w-10/12 mx-auto p-2 my-4 bg-slate-50 rounded-lg">
