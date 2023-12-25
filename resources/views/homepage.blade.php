@@ -7,12 +7,12 @@
         </p>
 
         <div class="my-4">
-            <span class="p-4 text-lg tracking-wider italic">
+            <p class="p-4 text-lg tracking-wider italic">
                 Anda belum login, Silahkan :
-            </span>
-            <a href="/login" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Login</a>
+            </p>
+            <a href="/login" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded m-4">Login</a>
 
-            <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Register</a>
+            <a href="/register" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-4">Register</a>
         </div>
     </div>
 @endsection
